@@ -1,0 +1,18 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tbuser {
+  id           Int      @id @default(autoincrement())
+  userName     String   @db.VarChar(100)
+  email        String   @unique(map: "email") @db.VarChar(100)
+  userPassword String   @db.VarChar(150)
+  createdAt    DateTime @default(now()) @db.DateTime(0)
+}
