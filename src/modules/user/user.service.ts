@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import User from './user.entity';
 import CreateUser from './dto/create-user.dto';
 import { UserRepository } from './user.repository';
@@ -18,8 +22,7 @@ export class UserService {
 
   async getAllUsers(): Promise<User[]> {
     const users = await this.userRepository.getAllUsers();
-    if (!users.length)
-      throw new BadRequestException('Nenhum usuário encontrado');
+    if (!users.length) throw new NotFoundException('Nenhum usuário encontrado');
 
     return users;
   }

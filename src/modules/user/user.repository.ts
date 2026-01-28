@@ -17,10 +17,10 @@ export class UserRepository {
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
-    return await this.prisma.tbuser.findUnique({ where: { email } });
+    return await this.prisma.tbUser.findUnique({ where: { email } });
   }
 
   async getAllUsers(): Promise<User[]> {
-    return await this.prisma.tbuser.findMany();
+    return await this.prisma.tbUser.findMany();
   }
 }

@@ -1,6 +1,7 @@
 import {
   //   IsDate,
   IsEmail,
+  IsEmpty,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -41,6 +42,6 @@ export default class User {
   )
   userPassword: string;
 
-  @IsNotEmpty({ message: 'Data de criação é obrigatória!' })
-  createdAt: Date;
+  @IsEmpty()
+  createdAt: Date | null;
 }
