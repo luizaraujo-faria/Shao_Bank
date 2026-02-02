@@ -1,0 +1,19 @@
+version: "3.9" # VERSÃO DO DOCKER COMPOSE
+
+services: # SERVIÇOS PARA GERAR OS CONTAINERS
+  mysql:
+    image: mysql:8.0 # IMAGEM DO MYSQL
+    container_name: shao_bank # NOME DO CONTAINER
+    restart: always # REINICIA O CONTAINER AUTOMATICAMENTE
+    environment: # VARIÁVEIS DE AMBIENTE
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbShao_Bank
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Lui308HE@AF_
+    ports: # PORTAS DO CONTAINER
+      - "3307:3306"
+    volumes: # VOLUME PARA PERSISTENCIA DOS DADOS
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
