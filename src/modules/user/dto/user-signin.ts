@@ -1,32 +1,19 @@
-import { Exclude } from 'class-transformer';
 import {
-  //   IsDate,
   IsEmail,
   IsNotEmpty,
-  IsNumber,
   IsString,
   IsStrongPassword,
   Length,
   MaxLength,
 } from 'class-validator';
 
-export default class User {
-  @IsNumber()
-  @IsNotEmpty({ message: 'ID de usuário é obrigatório!' })
-  id: number;
-
-  @IsString({ message: 'O nome deve ser um texto válido!' })
-  @IsNotEmpty({ message: 'O nome é obrigatório!' })
-  @Length(2, 100)
-  userName: string;
-
+export class UserSignIn {
   @IsString({ message: 'Email deve ser um texto válido!' })
   @IsEmail({}, { message: 'Insira um email válido!' })
   @MaxLength(100, { message: 'Email deve conter no máximo 100 caractéres!' })
   @IsNotEmpty({ message: 'Email é obrigatório!' })
   email: string;
 
-  @Exclude()
   @IsString({ message: 'Senha deve ser um texto válido!' })
   @Length(8, 150, { message: 'Senha deve conter no mínimo 8 caractéres!' })
   @IsNotEmpty({ message: 'Senha é obrigatória!' })
@@ -42,8 +29,4 @@ export default class User {
     },
   )
   userPassword: string;
-
-  @IsNotEmpty()
-  @Exclude()
-  createdAt: Date | null;
 }

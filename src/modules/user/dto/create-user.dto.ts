@@ -24,13 +24,13 @@ export default class CreateUser {
   @IsNotEmpty({ message: 'Senha é obrigatória!' })
   @IsStrongPassword(
     {
-      minLength: 8,
       minNumbers: 1,
       minUppercase: 1,
       minSymbols: 1,
     },
     {
-      message: 'A senha deve conter Maiusculos, números e símbolos!',
+      message:
+        'A senha deve conter Maiúsculos, Minúsculos, números e símbolos!',
     },
   )
   userPassword: string;
