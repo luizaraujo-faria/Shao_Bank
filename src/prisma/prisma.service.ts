@@ -1,7 +1,7 @@
 import {
   Injectable,
   OnModuleInit,
-  // OnModuleDestroy,
+  OnModuleDestroy,
   Logger,
 } from '@nestjs/common';
 import { PrismaClient } from '../generated/prisma/client';
@@ -31,7 +31,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     }
   }
 
-  // async onModuleDestroy() {
-  //   await this.$disconnect();
-  // }
+  async onModuleDestroy() {
+    try {
+      await this.$disconnect();
+      Logger.log('Base de Dados Desconectada');
+    } catch (err) {
+      Logger.error('Falha ao desconectar com base de dados!', err);
+    }
+  }
 }

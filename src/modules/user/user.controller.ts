@@ -9,7 +9,6 @@ export class UserController {
   @Post('/')
   @HttpCode(201)
   async createUser(@Body() reqBody: CreateUser) {
-    console.log('   BODY CHEGOU NO CONTROLLER:', reqBody);
     await this.userService.createUser(reqBody);
 
     return {

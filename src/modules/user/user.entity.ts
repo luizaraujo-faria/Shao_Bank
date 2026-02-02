@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   //   IsDate,
   IsEmail,
@@ -25,6 +26,7 @@ export default class User {
   @IsNotEmpty({ message: 'Email é obrigatório!' })
   email: string;
 
+  @Exclude()
   @IsString({ message: 'Senha deve ser um texto válido!' })
   @Length(8, 150, { message: 'Senha deve conter no mínimo 8 caractéres!' })
   @IsNotEmpty({ message: 'Senha é obrigatória!' })
@@ -41,6 +43,7 @@ export default class User {
   )
   userPassword: string;
 
-  @IsNotEmpty({ message: 'Data de criação é obrigatória!' })
-  createdAt: Date;
+  @IsNotEmpty()
+  @Exclude()
+  createdAt: Date | null;
 }
