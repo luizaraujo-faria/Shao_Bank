@@ -8,6 +8,7 @@ import CreateUser from './dto/create-user.dto';
 import { UserRepository } from './repository/user.repository';
 import { plainToInstance } from 'class-transformer';
 import { UserResponse } from './dto/get-user-response';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,23 @@ export class UserService {
     );
     if (existingUser) throw new BadRequestException('Email já cadastrado!');
 
-    await this.userRepository.createUser(newUser);
+    const hashPassword: string = await bcrypt.hash(newUser.userPassword, 10);
+
+    const serializedUser: CreateUser = {
+      ...newUser,
+      userPassword: hashPassword,
+    };
+
+    await this.userRepository.createUser(serializedUser);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const user: User | null = await this.userRepository.findByEmail(email);
+    // if (!user) {
+    //   throw new NotFoundException('Nenhum usuário encontrado para este email!');
+    // }
+
+    return user;
   }
 
   async getAllUsers(): Promise<UserResponse[]> {

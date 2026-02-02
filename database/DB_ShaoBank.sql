@@ -9,7 +9,8 @@ userPassword varchar(150) not null check(CHAR_LENGTH(userPassword) >= 8),
 createdAt datetime default CURRENT_TIMESTAMP()
 );
 
-drop table tbUser;
+select * from tbUser;
+truncate table tbUser;
 
 create procedure spCreate_User(
 	vUserName varchar(100),
