@@ -1,51 +1,64 @@
-// {
-//   "moduleFileExtensions": ["js", "json", "ts"],
-//   "rootDir": ".",
-//   "testEnvironment": "node",
-//   "testRegex": ".e2e-spec.ts$",
-//   "transform": {
-//     "^.+\\.(t|j)s$": "ts-jest"
-//   }
-// }
+# Shao Bank API - @Luiz Araujo
 
-import { Test } from '@nestjs/testing';
-import { UserRepository } from '../../src/modules/user/repository/user.repository';
-import { PrismaService } from '../../src/prisma/prisma.service';
+  API bancária para o sistema do banco ShaoBank, o sistema tem como objetivo estudo e entendimento para aprofundamento nos fundamentos de Back-End, TypeScript, Nest.js, Testes e Docker.
 
-describe('Testes do UserRepository', () => {
-  let repository: UserRepository;
-  let prisma: jest.Mocked<PrismaService>;
+# Dependências
 
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [
-        UserRepository,
-        {
-          provide: PrismaService,
-          useValue: {
-            tbUser: {
-              $executeRaw: jest.fn(),
-              findUnique: jest.fn(),
-              findMany: jest.fn(),
-            },
-          },
-        },
-      ],
-    }).compile();
+  # Core
 
-    repository = module.get(UserRepository);
-    prisma = module.get(PrismaService);
-  });
+    - Node.js ( v24LTS )
+    - TypeScript ( v5.7.3 )
+    - Nest.js ( v11.0.1 )
+    - Mysql ( v8.8 )
+    - Prisma ( v7.3.0 )
 
-  it('Deve executar a procedure ao criar um usuário', async () => {
-    prisma.tbUser.$executeRaw.mockResolveValue(1 as any);
+  # Segurança / Autênticação
 
-    await repository.createUser({
-      userName: 'Teste',
-      email: 'teste@gmail.com',
-      userPassword: 'Teste@123'
-    })
+    - Bcrypt ( v6.0.0 )
+    - JWT ( v11.0.2 ) & Passport ( v11.0.5 )
+    - Dotenv ( v17.2.3 )
 
-    expect(prisma.tbUser.$executeRaw).toHaveBeenCalled();
-  });
-});
+  # Testes / Versão / Infra
+
+    - Jest ( v30.0.0 )
+    - Git ( v2.43.0 )
+    - Pnpm ( v10.28.2 )
+    - Docker ( v29.2.0 )
+
+# Organização
+
+  Baseado na arquitetura modular padrão do Nest.js:
+
+  Shao_Bank/
+
+    database/ - Script do banco
+    prisma/ - Schema do prisma
+    src/
+
+      generated/
+      modules/ - Módulos principais
+
+        user/
+
+      prisma/ - Módulo do prisma
+      res/ - Respostas customizadas
+      app.module.ts
+      main.ts
+
+    test/
+
+      unitary/
+
+        user/
+
+# Instalação
+
+- git clone https://github.com/luizaraujo-faria/Shao_Bank
+- pnpm install
+
+# Utilização
+
+- pnpm start:dev
+- pnpm test
+- pnpm test:cov
+- pnpm lint
