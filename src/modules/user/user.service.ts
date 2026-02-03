@@ -30,11 +30,11 @@ export class UserService {
     await this.userRepository.createUser(serializedUser);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<User> {
     const user: User | null = await this.userRepository.findByEmail(email);
-    // if (!user) {
-    //   throw new NotFoundException('Nenhum usuário encontrado para este email!');
-    // }
+    if (!user) {
+      throw new NotFoundException('Nenhum usuário encontrado para este email!');
+    }
 
     return user;
   }

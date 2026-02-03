@@ -13,9 +13,9 @@ export class AuthService {
 
   async signIn(userSignin: UserSignIn): Promise<{ access_token: string }> {
     const user = await this.userService.findByEmail(userSignin.email);
-    if (!user) {
-      throw new UnauthorizedException('Email ou senha inválidos!');
-    }
+    // if (!user) {
+    //   throw new UnauthorizedException('Email ou senha inválidos!');
+    // }
 
     // COMPARA SENHAS
     const passwordMatch = await bcrypt.compare(
